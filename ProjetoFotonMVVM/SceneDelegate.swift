@@ -14,11 +14,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
+           // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
+           // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+           // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+           guard let windowScene = (scene as? UIWindowScene) else { return }
+           
+           let listaController  = ViewController(nibName: "ViewController", bundle: nil)
+           let homeContoller  = ListaViewController(nibName: "ListaViewController", bundle: nil)
+           
+           let nav1  = UINavigationController()
+           let nav2  = UINavigationController()
+           
+           nav1.tabBarItem.title = "Produtos"
+           nav2.tabBarItem.title = "Carrinho"
+           nav1.tabBarItem.image = UIImage(named: "shop.png")
+           nav2.tabBarItem.image = UIImage(named: "list.png")
+           
+           
+           nav1.pushViewController(listaController, animated: false)
+           nav2.pushViewController(homeContoller, animated: false)
+           
+           let tabBarController = UITabBarController()
+           tabBarController.viewControllers = [nav1, nav2]
+           
+           
+           window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+           window?.windowScene =  windowScene
+           window?.rootViewController = tabBarController
+           window?.makeKeyAndVisible()
+       }
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
